@@ -1,29 +1,28 @@
-This script is a basic keylogger implemented in Python using the pynput library to capture keyboard inputs. 
-The logged keystrokes are then color-coded based on predefined keywords.
-The script periodically sends the collected keyboard data to a specified server using HTTP POST requests. 
-It utilizes threading to schedule the sending of data at regular intervals.
+The Python program serves as a password strength checker, providing users with a tool to assess the security level of their passwords. It incorporates functions to detect common passwords, evaluate strength based on various criteria, and interactively prompt users for password input.
 
-Here's a summary of the key components:
+Key Components:
 
-Keylogging Logic:
+Constants:
+The program includes a list of COMMON_PASSWORDS to identify commonly used passwords.
 
-Uses the pynput library to capture keyboard inputs.
-Maps certain keys to specific actions, such as handling special keys like Enter, Tab, Space, Backspace, and Ctrl.
-Stores the pressed keys in the text variable.
-Color Coding:
+Functions:
+is_common_password(password): Checks if the given password is among common choices.
+check_password_strength(password): Assesses password strength considering length, common patterns, and character classes.
+ask_pwd(another_pwd=False): Prompts users to enter another password or check the strength, ensuring interactive user engagement.
 
-Defines color codes using ANSI escape codes for specific keywords (e.g., Gmail, Facebook, Bank) to visually distinguish them in the output.
-HTTP POST Requests:
+Execution Flow:
+The program begins with a welcome message and the option to check password strength or exit.
+User input is secured with getpass.getpass() for password entry.
+Password strength is evaluated, and the program provides feedback on the strength level and a hint based on the assessment.
+Users can opt to enter another password or exit the program.
 
-Sends the collected keyboard data as a JSON payload to a specified server at regular intervals (controlled by time_interval).
-Uses the requests library to make HTTP POST requests.
-Error Handling:
+Strength Levels:
+Passwords are categorized into strength levels 1 to 5, with corresponding remarks indicating the password's strength.
+Strength levels are determined by factors such as common patterns, length, and character classes.
 
-Catches exceptions during the POST request process and prints an error message if the request couldn't be completed.
-Termination:
+User Interaction:
+The program maintains interactive communication with users through input prompts, ensuring clarity and user-friendly operation.
 
-Allows the user to terminate the keylogger by pressing the 'Esc' key.
-
-
-P.S: This is created solely for educational purposes and creating awareness 
+Execution Condition:
+The main execution section ensures the program runs when executed directly.
 
