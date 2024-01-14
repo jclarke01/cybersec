@@ -25,4 +25,5 @@ Termination:
 Allows the user to terminate the keylogger by pressing the 'Esc' key.
 
 
-P.S: This is created for study purposes
+P.S: This is created solely for educational purposes and creating awareness
+
