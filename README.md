@@ -1,6 +1,6 @@
 The Python program serves as a password strength checker, providing users with a tool to assess the security level of their passwords. It incorporates functions to detect common passwords, evaluate strength based on various criteria, and interactively prompt users for password input.
 
-Key Components:
+Key Components: 
 
 Constants:
 The program includes a list of COMMON_PASSWORDS to identify commonly used passwords.
