@@ -1,3 +1,4 @@
+#For educational and awareness purposes only
 #Keylogging Script
 
 from pynput import keyboard
